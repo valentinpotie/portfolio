@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentin Potié | Product Owner</title>
+    <meta name="description" content="Portfolio de Valentin Potié, Product Owner à la recherche d'une alternance de 2 ans.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ---------------------------------- */
+        /* 1. RESET & SETUP          */
+        /* ---------------------------------- */
+        :root {
+            --color-background: #111827;
+            --color-surface: #1F2937;
+            --color-primary: #34D399; /* Vert menthe */
+            --color-text-primary: #F9FAFB;
+            --color-text-secondary: #9CA3AF;
+            --color-border: #374151;
+
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Space Mono', monospace;
+
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 32px;
+            --spacing-xl: 64px;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Offset pour le header fixe */
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Effet d'apparition au scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------------------------------- */
+        /* 2. TYPOGRAPHIE            */
+        /* ---------------------------------- */
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-primary);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background-color: var(--color-primary);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-text-primary);
+        }
+
+        p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            max-width: 65ch; /* Limite la largeur des lignes pour une meilleure lisibilité */
+        }
+        
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        /* ---------------------------------- */
+        /* 3. HEADER & NAV             */
+        /* ---------------------------------- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--spacing-md) 0;
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+        .main-header.scrolled {
+             box-shadow: var(--shadow-md);
+        }
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-secondary);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+        .main-nav a {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-primary);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .main-nav a:hover::after, .main-nav a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .main-nav a.active {
+            color: var(--color-text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .main-nav { display: none; } /* Pour une version simple, on cache la nav sur mobile */
+        }
+
+        /* ---------------------------------- */
+        /* 4. SECTIONS             */
+        /* ---------------------------------- */
+
+        /* --- Hero Section --- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #hero .subtitle {
+            font-family: var(--font-secondary);
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        #hero h1 {
+            margin-bottom: var(--spacing-md);
+        }
+        #hero .availability {
+            margin-top: var(--spacing-lg);
+            font-style: italic;
+            color: var(--color-text-secondary);
+            border-left: 3px solid var(--color-primary);
+            padding-left: var(--spacing-md);
+        }
+
+        /* --- Experience & Projet --- */
+        .timeline {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+        .timeline-item {
+            background-color: var(--color-surface);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+        .item-header h3 { margin-bottom: 0; }
+        .item-date {
+            font-family: var(--font-secondary);
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .item-company {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        /* --- Compétences --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+        .skill-category {
+            background-color: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+        }
+        .skill-category h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+        .skill-category ul {
+            list-style: none;
+        }
+        .skill-category li {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+        }
+        .skill-category li::before {
+            content: '✓';
+            color: var(--color-primary);
+            margin-right: var(--spacing-sm);
+            font-weight: bold;
+        }
+
+        /* --- Formation --- */
+        .education-list .timeline-item {
+             margin-bottom: var(--spacing-md);
+        }
+        .mention {
+            font-style: italic;
+            color: var(--color-primary);
+        }
+        
+        /* --- Contact --- */
+        #contact { text-align: center; }
+        #contact p {
+            max-width: 50ch;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background-color: var(--color-primary);
+            color: var(--color-background);
+            border: 2px solid var(--color-primary);
+            border-radius: 5px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: transparent;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        #email-copy-feedback {
+            display: inline-block;
+            margin-left: var(--spacing-sm);
+            color: var(--color-primary);
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* ---------------------------------- */
+        /* 5. FOOTER               */
+        /* ---------------------------------- */
+        .main-footer {
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header" id="main-header">
+        <div class="container">
+            <div class="logo">VP</div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about" class="nav-link">À propos</a></li>
+                    <li><a href="#experience" class="nav-link">Expériences</a></li>
+                    <li><a href="#skills" class="nav-link">Compétences</a></li>
+                    <li><a href="#projects" class="nav-link">Projet</a></li>
+                    <li><a href="#education" class="nav-link">Formation</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <section id="hero">
+                <p class="subtitle fade-in">Valentin Potié</p>
+                <h1 class="fade-in" style="transition-delay: 100ms;">Product Owner</h1>
+                <p class="fade-in" style="transition-delay: 200ms;">
+                    Passionné par la création de produits qui répondent réellement aux besoins des utilisateurs, je transforme les idées en fonctionnalités concrètes et performantes.
+                </p>
+                <div class="availability fade-in" style="transition-delay: 300ms;">
+                    <p>Recherche d'une alternance en tant que Product Owner
+                    <br>
+                    <strong>Début :</strong> Septembre / Octobre 2024 | <strong>Durée :</strong> 2 ans
+                    <br>
+                    <strong>Rythme :</strong> 2 semaines en entreprise / 1 semaine en école</p>
+                </div>
+            </section>
+
+            <section id="about" class="fade-in">
+                <h2>À propos de moi</h2>
+                <p>
+                    Actuellement Product Owner chez <span class="highlight">Karos Mobility</span>, une application européenne de covoiturage, je suis au cœur de l'analyse des besoins utilisateurs et de la conception de fonctionnalités. Mon parcours, de l'entrepreneuriat avec la création de <span class="highlight">Cococar</span> à des expériences orientées client chez <span class="highlight">Apple</span> et <span class="highlight">Didüenjoy</span>, m'a doté d'une vision produit à 360°. J'allie empathie, analyse de données et gestion de projet pour créer des expériences utilisateurs fluides et impactantes.
+                </p>
+            </section>
+
+            <section id="experience" class="fade-in">
+                <h2>Expériences Professionnelles</h2>
+                <div class="timeline">
+                    <article class="timeline-item fade-in">
+                        <div class="item-header">
+                            <div>
+                                <h3>Product Owner</h3>
+                                <div class="item-company">Karos Mobility</div>
+                            </div>
+                            <div class="item-date">Oct. 2023 - Présent</div>
+                        </div>
+                        <p>Contribution à l'analyse des besoins utilisateurs et élaboration de fonctionnalités pour améliorer l'expérience de mobilité partagée sur une application européenne.</p>
+                    </article>
+                    <article class="timeline-item fade-in">
+                        <div class="item-header">
+                             <div>
+                                <h3>Customer Success Manager</h3>
+                                <div class="item-company">Didüenjoy</div>
+                            </div>
+                            <div class="item-date">Avr. 2023 - Sep. 2023</div>
+                        </div>
+                        <p>Gestion de l'intégration client et du support technique sur une plateforme SaaS. Utilisation de l'analyse de données pour optimiser l'expérience utilisateur et la stratégie produit.</p>
+                    </article>
+                    <article class="timeline-item fade-in">
+                        <div class="item-header">
+                            <div>
+                                <h3>Entrepreneur</h3>
+                                <div class="item-company">Cococar / Impulse</div>
+                            </div>
+                            <div class="item-date">Juin 2019 - Sep. 2023</div>
+                        </div>
+                        <p>Fondateur de Cococar, un service de location de voitures. Développement d'une application de location entre particuliers, de la conception à la mise en production.</p>
+                    </article>
+                    <article class="timeline-item fade-in">
+                        <div class="item-header">
+                            <div>
+                                <h3>Conseiller</h3>
+                                <div class="item-company">Apple</div>
+                            </div>
+                            <div class="item-date">Juin 2022 - Sep. 2022</div>
+                        </div>
+                        <p>Orientation des clients vers les technologies adaptées à leurs besoins et maintien d'un haut niveau de satisfaction client.</p>
+                    </article>
+                </div>
+            </section>
+            
+            <section id="skills" class="fade-in">
+                <h2>Compétences</h2>
+                <div class="skills-grid">
+                    <div class="skill-category fade-in">
+                        <h3>Stratégie Produit</h3>
+                        <ul>
+                            <li>Data oriented</li>
+                            <li>User interviews</li>
+                            <li>User Stories</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category fade-in">
+                        <h3>Gestion de Projet</h3>
+                        <ul>
+                            <li>Sprint Management</li>
+                            <li>Q/A testing</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category fade-in">
+                        <h3>Qualités Humaines</h3>
+                        <ul>
+                            <li>Listening</li>
+                            <li>Empathy</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="projects" class="fade-in">
+                <h2>Projet Personnel</h2>
+                <div class="timeline">
+                     <article class="timeline-item fade-in">
+                        <div class="item-header">
+                            <div>
+                                <h3>Rooride - Application Mobile</h3>
+                                <div class="item-company">Projet personnel</div>
+                            </div>
+                             <div class="item-date">Lancée en Juin 2024</div>
+                        </div>
+                        <p>Développement d'une application de covoiturage dédiée au marché australien sur mon temps libre. Ce projet m'a permis de maîtriser l'ensemble du cycle de vie d'un produit, de l'idéation au lancement.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="education" class="fade-in">
+                <h2>Formation</h2>
+                <div class="education-list">
+                    <article class="timeline-item fade-in">
+                        <h3>Master Product Manager</h3>
+                        <div class="item-company">Hetic, Montreuil</div>
+                        <div class="item-date">2023 - 2026</div>
+                    </article>
+                    <article class="timeline-item fade-in">
+                        <h3>Bachelor E-commerce & Start-Up</h3>
+                        <div class="item-company">Inseec, Lyon</div>
+                        <div class="item-date">2021 - 2023</div>
+                    </article>
+                    <article class="timeline-item fade-in">
+                        <h3>Baccalauréat ES</h3>
+                        <div class="item-company">Nantes <span class="mention">(Mention Très Bien)</span></div>
+                        <div class="item-date">2019</div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="contact" class="fade-in">
+                <h2>Contact</h2>
+                <p>
+                    Je suis toujours ouvert à la discussion. N'hésitez pas à me contacter par e-mail ou à consulter mon profil LinkedIn.
+                </p>
+                <div class="contact-buttons">
+                    <button id="email-btn" class="btn" data-email="valpdu44@hotmail.fr">
+                        Copier mon e-mail
+                        <span id="email-copy-feedback">Copié !</span>
+                    </button>
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="btn">
+                        Voir mon LinkedIn
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Valentin Potié. Conçu avec soin.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ---------------------------------- //
+        //     INTERSECTION OBSERVER API      //
+        // Pour l'animation au défilement     //
+        // ---------------------------------- //
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            threshold: 0.1 // L'élément devient visible dès que 10% est affiché
+        });
+
+        const targets = document.querySelectorAll('.fade-in');
+        targets.forEach(target => {
+            observer.observe(target);
+        });
+
+        // ---------------------------------- //
+        //        HEADER SCROLL EFFECT        //
+        //   Ajoute une ombre au header       //
+        // ---------------------------------- //
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ---------------------------------- //
+        //        ACTIVE NAV LINK             //
+        //  Met en surbrillance le lien de    //
+        //     la section visible             //
+        // ---------------------------------- //
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-50% 0px -50% 0px' // Active le lien quand la section est au milieu de l'écran
+        });
+
+        sections.forEach(section => {
+             navObserver.observe(section);
+        });
+        
+        // ---------------------------------- //
+        //         EMAIL COPY BUTTON          //
+        // Copie l'e-mail dans le presse-papier//
+        // ---------------------------------- //
+        const emailBtn = document.getElementById('email-btn');
+        const emailFeedback = document.getElementById('email-copy-feedback');
+
+        emailBtn.addEventListener('click', () => {
+            const email = emailBtn.dataset.email;
+            navigator.clipboard.writeText(email).then(() => {
+                emailFeedback.style.opacity = '1';
+                setTimeout(() => {
+                    emailFeedback.style.opacity = '0';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erreur lors de la copie de l\'e-mail: ', err);
+            });
+        });
+
+    });
+    </script>
+</body>
+</html>
