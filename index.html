@@ -1,619 +1,451 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentin Potié | Product Owner</title>
-    <meta name="description" content="Portfolio de Valentin Potié, Product Owner à la recherche d'une alternance de 2 ans.">
+    <title>Fastfolio - Build Your AI Portfolio in 5 Minutes</title>
+    <meta name="description" content="Create an AI-powered portfolio that talks back. Your digital twin that answers questions, showcases work, and converts visitors 24/7.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* ---------------------------------- */
-        /* 1. RESET & SETUP          */
-        /* ---------------------------------- */
-        :root {
-            --color-background: #111827;
-            --color-surface: #1F2937;
-            --color-primary: #34D399; /* Vert menthe */
-            --color-text-primary: #F9FAFB;
-            --color-text-secondary: #9CA3AF;
-            --color-border: #374151;
-
-            --font-primary: 'Inter', sans-serif;
-            --font-secondary: 'Space Mono', monospace;
-
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 32px;
-            --spacing-xl: 64px;
-
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --accent: #0070f3;
+            --accent-hover: #0051cc;
+            --surface: #111111;
+            --border: #333333;
         }
 
         html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px; /* Offset pour le header fixe */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
         }
 
         body {
-            background-color: var(--color-background);
-            color: var(--color-text-primary);
-            font-family: var(--font-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        section {
-            padding: var(--spacing-xl) 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        /* Effet d'apparition au scroll */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ---------------------------------- */
-        /* 2. TYPOGRAPHIE            */
-        /* ---------------------------------- */
-        h1, h2, h3 {
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--color-primary);
-        }
-
-        h2 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: var(--spacing-lg);
+            min-height: 100vh;
             position: relative;
-            display: inline-block;
         }
 
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background-color: var(--color-primary);
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            margin-bottom: var(--spacing-xs);
-            color: var(--color-text-primary);
-        }
-
-        p {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-md);
-            max-width: 65ch; /* Limite la largeur des lignes pour une meilleure lisibilité */
-        }
-        
-        a {
-            color: var(--color-primary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .highlight {
-            color: var(--color-primary);
-            font-weight: 500;
-        }
-
-        /* ---------------------------------- */
-        /* 3. HEADER & NAV             */
-        /* ---------------------------------- */
-        .main-header {
+        /* Gradient Background */
+        .gradient-bg {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            padding: var(--spacing-md) 0;
-            background-color: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: box-shadow 0.3s ease;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 112, 243, 0.3), transparent);
+            pointer-events: none;
+            z-index: -1;
         }
-        .main-header.scrolled {
-             box-shadow: var(--shadow-md);
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        .main-header .container {
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .logo {
-            font-family: var(--font-secondary);
-            font-size: 1.25rem;
+            font-size: 20px;
             font-weight: 700;
-            color: var(--color-text-primary);
+            letter-spacing: -0.5px;
         }
-        .main-nav ul {
-            list-style: none;
-            display: flex;
-            gap: var(--spacing-lg);
-        }
-        .main-nav a {
+
+        .header-cta {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 500;
-            color: var(--color-text-secondary);
-            position: relative;
-            padding-bottom: 5px;
-        }
-        .main-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--color-primary);
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-        .main-nav a:hover::after, .main-nav a.active::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-        .main-nav a.active {
-            color: var(--color-text-primary);
+            transition: all 0.2s;
         }
 
-        @media (max-width: 768px) {
-            .main-nav { display: none; } /* Pour une version simple, on cache la nav sur mobile */
+        .header-cta:hover {
+            background: var(--accent-hover);
         }
 
-        /* ---------------------------------- */
-        /* 4. SECTIONS             */
-        /* ---------------------------------- */
-
-        /* --- Hero Section --- */
-        #hero {
+        /* Main Content */
+        main {
+            padding: 60px 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-        }
-        #hero .subtitle {
-            font-family: var(--font-secondary);
-            font-size: 1.1rem;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-md);
-        }
-        #hero h1 {
-            margin-bottom: var(--spacing-md);
-        }
-        #hero .availability {
-            margin-top: var(--spacing-lg);
-            font-style: italic;
-            color: var(--color-text-secondary);
-            border-left: 3px solid var(--color-primary);
-            padding-left: var(--spacing-md);
+            gap: 48px;
         }
 
-        /* --- Experience & Projet --- */
-        .timeline {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--spacing-lg);
+        /* Hero Section */
+        .hero {
+            text-align: center;
         }
-        .timeline-item {
-            background-color: var(--color-surface);
-            padding: var(--spacing-lg);
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .timeline-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: var(--spacing-sm);
-            flex-wrap: wrap;
-            gap: var(--spacing-sm);
-        }
-        .item-header h3 { margin-bottom: 0; }
-        .item-date {
-            font-family: var(--font-secondary);
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        .item-company {
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 112, 243, 0.1);
+            border: 1px solid rgba(0, 112, 243, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 500;
-            color: var(--color-text-secondary);
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
         }
 
-        /* --- Compétences --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-md);
+        h1 {
+            font-size: clamp(48px, 10vw, 88px);
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 0.95;
+            background: linear-gradient(to bottom, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .skill-category {
-            background-color: var(--color-surface);
-            padding: var(--spacing-md);
-            border-radius: 8px;
+
+        .subtitle {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.4;
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
-        .skill-category h3 {
-            color: var(--color-primary);
-            margin-bottom: var(--spacing-md);
+
+        .highlight {
+            color: var(--text);
+            font-weight: 500;
         }
-        .skill-category ul {
-            list-style: none;
+
+        /* Video Demo Section */
+        .demo-section {
+            width: 100%;
+            max-width: 1100px;
         }
-        .skill-category li {
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-secondary);
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Play button overlay */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
-        }
-        .skill-category li::before {
-            content: '✓';
-            color: var(--color-primary);
-            margin-right: var(--spacing-sm);
-            font-weight: bold;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: opacity 0.3s;
         }
 
-        /* --- Formation --- */
-        .education-list .timeline-item {
-             margin-bottom: var(--spacing-md);
+        .play-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
-        .mention {
-            font-style: italic;
-            color: var(--color-primary);
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
         }
-        
-        /* --- Contact --- */
-        #contact { text-align: center; }
-        #contact p {
-            max-width: 50ch;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.1rem;
+
+        .play-overlay:hover .play-button {
+            transform: scale(1.1);
         }
-        .contact-buttons {
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 24px solid var(--bg);
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            margin-left: 6px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 112, 243, 0.1);
+            border-radius: 8px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+
+        .main-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 20px 40px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            transition: all 0.2s;
+            box-shadow: 0 8px 24px 0 rgba(0, 112, 243, 0.3);
+        }
+
+        .main-cta:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 12px 32px 0 rgba(0, 112, 243, 0.4);
+        }
+
+        .cta-arrow {
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+
+        .main-cta:hover .cta-arrow {
+            transform: translateX(4px);
+        }
+
+        .cta-note {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
             display: flex;
             justify-content: center;
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
+            align-items: center;
+            gap: 24px;
             flex-wrap: wrap;
         }
-        .btn {
-            display: inline-block;
-            padding: var(--spacing-sm) var(--spacing-lg);
-            background-color: var(--color-primary);
-            color: var(--color-background);
-            border: 2px solid var(--color-primary);
-            border-radius: 5px;
-            font-weight: 700;
+
+        .footer-link {
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: transparent;
-            color: var(--color-primary);
-            text-decoration: none;
-        }
-        #email-copy-feedback {
-            display: inline-block;
-            margin-left: var(--spacing-sm);
-            color: var(--color-primary);
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.5s;
+            font-size: 14px;
+            transition: color 0.2s;
         }
 
-        /* ---------------------------------- */
-        /* 5. FOOTER               */
-        /* ---------------------------------- */
-        .main-footer {
-            padding: var(--spacing-lg) 0;
-            text-align: center;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
+        .footer-link:hover {
+            color: var(--text);
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 20px;
+                gap: 32px;
+            }
+
+            h1 {
+                font-size: clamp(36px, 10vw, 56px);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .main-cta {
+                font-size: 18px;
+                padding: 16px 32px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
     </style>
 </head>
 <body>
+    <div class="gradient-bg"></div>
 
-    <header class="main-header" id="main-header">
-        <div class="container">
-            <div class="logo">VP</div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#about" class="nav-link">À propos</a></li>
-                    <li><a href="#experience" class="nav-link">Expériences</a></li>
-                    <li><a href="#skills" class="nav-link">Compétences</a></li>
-                    <li><a href="#projects" class="nav-link">Projet</a></li>
-                    <li><a href="#education" class="nav-link">Formation</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main>
-        <div class="container">
+    <main class="container">
+        <section class="hero fade-in">
+            <h1>Build your AI portfolio</h1>
+        </section>
+        <section class="cta-section fade-in delay-2">
+            <a href="https://fastfol.io" class="main-cta">
+                Create My AI Portfolio
+                <svg class="cta-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 10h10M10 5l5 5-5 5"/>
+                </svg>
+            </a>
+        </section>
 
-            <section id="hero">
-                <p class="subtitle fade-in">Valentin Potié</p>
-                <h1 class="fade-in" style="transition-delay: 100ms;">Product Owner</h1>
-                <p class="fade-in" style="transition-delay: 200ms;">
-                    Passionné par la création de produits qui répondent réellement aux besoins des utilisateurs, je transforme les idées en fonctionnalités concrètes et performantes.
-                </p>
-                <div class="availability fade-in" style="transition-delay: 300ms;">
-                    <p>Recherche d'une alternance en tant que Product Owner
-                    <br>
-                    <strong>Début :</strong> Septembre / Octobre 2024 | <strong>Durée :</strong> 2 ans
-                    <br>
-                    <strong>Rythme :</strong> 2 semaines en entreprise / 1 semaine en école</p>
-                </div>
-            </section>
-
-            <section id="about" class="fade-in">
-                <h2>À propos de moi</h2>
-                <p>
-                    Actuellement Product Owner chez <span class="highlight">Karos Mobility</span>, une application européenne de covoiturage, je suis au cœur de l'analyse des besoins utilisateurs et de la conception de fonctionnalités. Mon parcours, de l'entrepreneuriat avec la création de <span class="highlight">Cococar</span> à des expériences orientées client chez <span class="highlight">Apple</span> et <span class="highlight">Didüenjoy</span>, m'a doté d'une vision produit à 360°. J'allie empathie, analyse de données et gestion de projet pour créer des expériences utilisateurs fluides et impactantes.
-                </p>
-            </section>
-
-            <section id="experience" class="fade-in">
-                <h2>Expériences Professionnelles</h2>
-                <div class="timeline">
-                    <article class="timeline-item fade-in">
-                        <div class="item-header">
-                            <div>
-                                <h3>Product Owner</h3>
-                                <div class="item-company">Karos Mobility</div>
-                            </div>
-                            <div class="item-date">Oct. 2023 - Présent</div>
+        <section class="demo-section fade-in delay-1">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="demo-video" src="demo.mp4" muted loop playsinline>
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-overlay" id="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
                         </div>
-                        <p>Contribution à l'analyse des besoins utilisateurs et élaboration de fonctionnalités pour améliorer l'expérience de mobilité partagée sur une application européenne.</p>
-                    </article>
-                    <article class="timeline-item fade-in">
-                        <div class="item-header">
-                             <div>
-                                <h3>Customer Success Manager</h3>
-                                <div class="item-company">Didüenjoy</div>
-                            </div>
-                            <div class="item-date">Avr. 2023 - Sep. 2023</div>
-                        </div>
-                        <p>Gestion de l'intégration client et du support technique sur une plateforme SaaS. Utilisation de l'analyse de données pour optimiser l'expérience utilisateur et la stratégie produit.</p>
-                    </article>
-                    <article class="timeline-item fade-in">
-                        <div class="item-header">
-                            <div>
-                                <h3>Entrepreneur</h3>
-                                <div class="item-company">Cococar / Impulse</div>
-                            </div>
-                            <div class="item-date">Juin 2019 - Sep. 2023</div>
-                        </div>
-                        <p>Fondateur de Cococar, un service de location de voitures. Développement d'une application de location entre particuliers, de la conception à la mise en production.</p>
-                    </article>
-                    <article class="timeline-item fade-in">
-                        <div class="item-header">
-                            <div>
-                                <h3>Conseiller</h3>
-                                <div class="item-company">Apple</div>
-                            </div>
-                            <div class="item-date">Juin 2022 - Sep. 2022</div>
-                        </div>
-                        <p>Orientation des clients vers les technologies adaptées à leurs besoins et maintien d'un haut niveau de satisfaction client.</p>
-                    </article>
-                </div>
-            </section>
-            
-            <section id="skills" class="fade-in">
-                <h2>Compétences</h2>
-                <div class="skills-grid">
-                    <div class="skill-category fade-in">
-                        <h3>Stratégie Produit</h3>
-                        <ul>
-                            <li>Data oriented</li>
-                            <li>User interviews</li>
-                            <li>User Stories</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category fade-in">
-                        <h3>Gestion de Projet</h3>
-                        <ul>
-                            <li>Sprint Management</li>
-                            <li>Q/A testing</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category fade-in">
-                        <h3>Qualités Humaines</h3>
-                        <ul>
-                            <li>Listening</li>
-                            <li>Empathy</li>
-                        </ul>
                     </div>
                 </div>
-            </section>
-            
-            <section id="projects" class="fade-in">
-                <h2>Projet Personnel</h2>
-                <div class="timeline">
-                     <article class="timeline-item fade-in">
-                        <div class="item-header">
-                            <div>
-                                <h3>Rooride - Application Mobile</h3>
-                                <div class="item-company">Projet personnel</div>
-                            </div>
-                             <div class="item-date">Lancée en Juin 2024</div>
-                        </div>
-                        <p>Développement d'une application de covoiturage dédiée au marché australien sur mon temps libre. Ce projet m'a permis de maîtriser l'ensemble du cycle de vie d'un produit, de l'idéation au lancement.</p>
-                    </article>
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="education" class="fade-in">
-                <h2>Formation</h2>
-                <div class="education-list">
-                    <article class="timeline-item fade-in">
-                        <h3>Master Product Manager</h3>
-                        <div class="item-company">Hetic, Montreuil</div>
-                        <div class="item-date">2023 - 2026</div>
-                    </article>
-                    <article class="timeline-item fade-in">
-                        <h3>Bachelor E-commerce & Start-Up</h3>
-                        <div class="item-company">Inseec, Lyon</div>
-                        <div class="item-date">2021 - 2023</div>
-                    </article>
-                    <article class="timeline-item fade-in">
-                        <h3>Baccalauréat ES</h3>
-                        <div class="item-company">Nantes <span class="mention">(Mention Très Bien)</span></div>
-                        <div class="item-date">2019</div>
-                    </article>
-                </div>
-            </section>
 
-            <section id="contact" class="fade-in">
-                <h2>Contact</h2>
-                <p>
-                    Je suis toujours ouvert à la discussion. N'hésitez pas à me contacter par e-mail ou à consulter mon profil LinkedIn.
-                </p>
-                <div class="contact-buttons">
-                    <button id="email-btn" class="btn" data-email="valpdu44@hotmail.fr">
-                        Copier mon e-mail
-                        <span id="email-copy-feedback">Copié !</span>
-                    </button>
-                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="btn">
-                        Voir mon LinkedIn
-                    </a>
-                </div>
-            </section>
-
-        </div>
     </main>
-    
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2024 Valentin Potié. Conçu avec soin.</p>
-        </div>
-    </footer>
+
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        // ---------------------------------- //
-        //     INTERSECTION OBSERVER API      //
-        // Pour l'animation au défilement     //
-        // ---------------------------------- //
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, {
-            threshold: 0.1 // L'élément devient visible dès que 10% est affiché
-        });
-
-        const targets = document.querySelectorAll('.fade-in');
-        targets.forEach(target => {
-            observer.observe(target);
-        });
-
-        // ---------------------------------- //
-        //        HEADER SCROLL EFFECT        //
-        //   Ajoute une ombre au header       //
-        // ---------------------------------- //
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // ---------------------------------- //
-        //        ACTIVE NAV LINK             //
-        //  Met en surbrillance le lien de    //
-        //     la section visible             //
-        // ---------------------------------- //
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
-                    });
-                }
-            });
-        }, {
-            rootMargin: '-50% 0px -50% 0px' // Active le lien quand la section est au milieu de l'écran
-        });
-
-        sections.forEach(section => {
-             navObserver.observe(section);
-        });
+        // Video autoplay with user interaction
+        const video = document.getElementById('demo-video');
+        const playOverlay = document.getElementById('play-overlay');
         
-        // ---------------------------------- //
-        //         EMAIL COPY BUTTON          //
-        // Copie l'e-mail dans le presse-papier//
-        // ---------------------------------- //
-        const emailBtn = document.getElementById('email-btn');
-        const emailFeedback = document.getElementById('email-copy-feedback');
-
-        emailBtn.addEventListener('click', () => {
-            const email = emailBtn.dataset.email;
-            navigator.clipboard.writeText(email).then(() => {
-                emailFeedback.style.opacity = '1';
-                setTimeout(() => {
-                    emailFeedback.style.opacity = '0';
-                }, 2000);
-            }).catch(err => {
-                console.error('Erreur lors de la copie de l\'e-mail: ', err);
-            });
+        playOverlay.addEventListener('click', () => {
+            video.play();
+            playOverlay.classList.add('hidden');
         });
 
-    });
+        // Auto-play after a delay
+        setTimeout(() => {
+            video.play().then(() => {
+                playOverlay.classList.add('hidden');
+            }).catch(() => {
+                // Autoplay prevented, keep showing play button
+            });
+        }, 1500);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
